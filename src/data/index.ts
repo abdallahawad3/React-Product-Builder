@@ -11,7 +11,7 @@ import {
   pcDesktop,
   tShirt,
 } from "../assets/images/index";
-import type { IProduct } from "../interfaces";
+import type { IFormInputs, IProduct } from "../interfaces";
 
 export const ProductList: IProduct[] = [
   {
@@ -146,48 +146,48 @@ export const ProductList: IProduct[] = [
   },
 ];
 
-// export const formInputList = [
-//   {
-//     id: "title",
-//     name: "title",
-//     label: "Product Title",
-//     type: "text",
-//   },
-//   {
-//     id: "description",
-//     name: "description",
-//     label: "Product description",
-//     type: "text",
-//   },
-//   {
-//     id: "image",
-//     name: "imageURL",
-//     label: "Product image url",
-//     type: "text",
-//   },
-//   {
-//     id: "price",
-//     name: "price",
-//     label: "Product price",
-//     type: "text",
-//   },
-// ];
+export const formInputList: IFormInputs[] = [
+  {
+    id: "title",
+    name: "title",
+    label: "Product Title",
+    type: "text",
+  },
+  {
+    id: "description",
+    name: "description",
+    label: "Product description",
+    type: "text",
+  },
+  {
+    id: "image",
+    name: "imageURL",
+    label: "Product image url",
+    type: "text",
+  },
+  {
+    id: "price",
+    name: "price",
+    label: "Product price",
+    type: "text",
+  },
+];
 
-// export const colors: string[] = [
-//   "#A855F7",
-//   "#2563EB",
-//   "#84D2C5",
-//   "#13005A",
-//   "#FF6E31",
-//   "#3C2A21",
-//   "#6C4AB6",
-//   "#CB1C8D",
-//   "#000000",
-//   "#645CBB",
-//   "#1F8A70",
-//   "#820000",
-//   "#FF0032",
-// ];
+export const colors: string[] = [
+  "#A855F7",
+  "#2563EB",
+  "#84D2C5",
+  "#13005A",
+  "#FF6E31",
+  "#3C2A21",
+  "#6C4AB6",
+  "#CB1C8D",
+  "#000000",
+  "#645CBB",
+  "#1F8A70",
+  "#820000",
+  "#FF0032",
+];
 
 // export const Category = [
 //   {

@@ -15,7 +15,7 @@ const ProductCard = ({ product }: IProps) => {
   return (
     <div className="border border-slate-300 rounded-md p-3 space-y-2">
       <Image url={product.imageURL} alt={product.title} classes="rounded-sm" />
-      <h2 className="font-bold text-lg text-black">{textSlice(product.title, 20)}</h2>
+      <h2 className="font-bold text-lg text-black/80">{textSlice(product.title, 20)}</h2>
       <p className="text-slate-500">{textSlice(product.description, 50)}</p>
       <div className="mt-2 mb-2 flex space-x-1">{circleRender}</div>
 
