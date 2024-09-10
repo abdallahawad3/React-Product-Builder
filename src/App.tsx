@@ -9,6 +9,7 @@ import type { IProduct } from "./interfaces";
 import Circle from "./components/Circle";
 import { productValidation } from "./validation";
 import MessageError from "./components/MessageError";
+import Select from "./components/ui/Select";
 
 const App = () => {
   const defaultProduct = {
@@ -147,6 +148,9 @@ const App = () => {
           <div className="">
             <div className="my-3 flex space-x-1">{renderCircles}</div>
             <div className="flex flex-wrap gap-1">{selectedColorRender}</div>
+            <div>
+              <Select />
+            </div>
           </div>
           {/* button of modal..👋 */}
           <div className="flex gap-3 mt-3 items-center justify-between">
