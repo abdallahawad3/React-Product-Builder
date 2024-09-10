@@ -12,7 +12,7 @@ import MessageError from "./components/MessageError";
 
 const App = () => {
   const defaultProduct = {
-    id: uuid(),
+    id: "",
     title: "",
     imageURL: "",
     description: "",
@@ -32,6 +32,7 @@ const App = () => {
     imageURL: "",
     price: "",
   });
+  const [selectedColor, setSelectedColor] = useState<string[]>([]);
   const [product, setProduct] = useState<IProduct>(defaultProduct);
   const [productList, setProductList] = useState<IProduct[]>(ProductList);
 
@@ -39,6 +40,13 @@ const App = () => {
 
   const toggleBuildModal = () => {
     setIsBuildOpen(!isBuildOpen);
+  };
+  const handleSelectedColors = (color: string) => {
+    if (selectedColor.includes(color)) {
+      setSelectedColor((prev) => prev.filter((item) => item !== color));
+      return;
+    }
+    setSelectedColor((prev) => [...prev, color]);
   };
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -52,6 +60,7 @@ const App = () => {
     toggleBuildModal();
     // Reset the product to initial value
     setProduct(defaultProduct);
+    setSelectedColor([]);
     setMsgError({ title: "", description: "", imageURL: "", price: "" });
   };
 
@@ -59,12 +68,14 @@ const App = () => {
     e.preventDefault();
     const errorObj = productValidation(product);
     setMsgError(errorObj);
+    setProduct(product);
     const notHasErrorMessage = Object.values(errorObj).every((ele) => ele == "");
     if (notHasErrorMessage) {
       // Add The new product
-      setProductList([product, ...productList]);
+      setProductList((prev) => [{ ...product, id: uuid(), colors: selectedColor }, ...prev]);
       // Reset the product to initial value
       setProduct(defaultProduct);
+      setSelectedColor([]);
       // Close the modal
       toggleBuildModal();
     }
@@ -93,7 +104,24 @@ const App = () => {
     );
   });
 
-  const renderCircle = colors.map((el) => <Circle color={el} key={el} />);
+  const renderCircles = colors.map((el) => (
+    <Circle
+      onClick={() => {
+        handleSelectedColors(el);
+      }}
+      color={el}
+      key={el}
+    />
+  ));
+
+  const selectedColorRender = selectedColor.map((color) => (
+    <span
+      key={color}
+      className="px-2 py-1 text-white font-semibold rounded-md"
+      style={{ background: `${color}` }}>
+      {color}
+    </span>
+  ));
 
   return (
     <div className="container mx-auto my-7">
@@ -116,7 +144,10 @@ const App = () => {
         <form onSubmit={formSubmit}>
           {/* Render inputs..👋 */}
           <div className="space-y-3">{formInputsRender}</div>
-          <div className="my-3 flex space-x-1">{renderCircle}</div>
+          <div className="">
+            <div className="my-3 flex space-x-1">{renderCircles}</div>
+            <div className="flex flex-wrap gap-1">{selectedColorRender}</div>
+          </div>
           {/* button of modal..👋 */}
           <div className="flex gap-3 mt-3 items-center justify-between">
             <Button
