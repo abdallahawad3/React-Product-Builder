@@ -9,9 +9,18 @@ interface IProps {
   index: number;
   toggleIsEditProduct: () => void;
   isEditProduct: (product: IProduct, idx: number) => void;
+  deleteProduct: (id: string) => void;
+  toggleDeleteModal: () => void;
 }
 
-const ProductCard = ({ product, toggleIsEditProduct, isEditProduct, index }: IProps) => {
+const ProductCard = ({
+  product,
+  toggleIsEditProduct,
+  isEditProduct,
+  index,
+  deleteProduct,
+  toggleDeleteModal,
+}: IProps) => {
   //!------------------------------ 🔴✅ Render Color Circle ✅🔴 ------------------------------
   const circleRender = product.colors.map((color) => <Circle color={color} key={color} />);
 
@@ -45,7 +54,14 @@ const ProductCard = ({ product, toggleIsEditProduct, isEditProduct, index }: IPr
           className=" bg-blue-600 hover:bg-blue-700">
           EDIT
         </Button>
-        <Button className="bg-red-600 hover:bg-red-700">DELETE</Button>
+        <Button
+          onClick={() => {
+            deleteProduct(product.id);
+            toggleDeleteModal();
+          }}
+          className="bg-red-600 hover:bg-red-700">
+          DELETE
+        </Button>
       </div>
     </div>
   );

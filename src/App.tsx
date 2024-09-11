@@ -11,6 +11,7 @@ import { productValidation } from "./validation";
 import MessageError from "./components/MessageError";
 import Select from "./components/ui/Select";
 import type { TFormInputs } from "./types";
+import toast, { Toaster } from "react-hot-toast";
 
 const App = () => {
   const defaultProduct = {
@@ -36,6 +37,8 @@ const App = () => {
   const [productToEdit, setProductToEdit] = useState<IProduct>(defaultProduct);
   const [editProductModal, setEditProductModal] = useState<boolean>(false);
   const [productToEditIdx, setProductToEditIdx] = useState<number>(0);
+  const [deleteProductModal, setDeleteProductModal] = useState<boolean>(false);
+  const [deleteProductId, setDeleteProductId] = useState<string>("");
   const [msgError, setMsgError] = useState({
     title: "",
     description: "",
@@ -54,7 +57,9 @@ const App = () => {
   const toggleIsEditModal = () => {
     setEditProductModal(!editProductModal);
   };
-
+  const toggleDeleteModal = () => {
+    setDeleteProductModal(!deleteProductModal);
+  };
   const handleSelectedColors = (color: string) => {
     if (selectedColor.includes(color)) {
       setSelectedColor((prev) => prev.filter((item) => item !== color));
@@ -81,6 +86,21 @@ const App = () => {
   const editProduct = (product: IProduct, idx: number) => {
     setProductToEditIdx(idx);
     setProductToEdit(product);
+  };
+
+  const deleteProduct = (id: string) => {
+    // console.log(id);
+    setDeleteProductId(id);
+  };
+
+  const confirmDeleteProduct = () => {
+    const productAfterDeleted = productList.filter((ele) => ele.id != deleteProductId);
+    setProductList(productAfterDeleted);
+    toggleDeleteModal();
+    toast.error("The product deleted.", {
+      icon: "❌",
+      position: "top-right",
+    });
   };
 
   const onCancel = () => {
@@ -110,6 +130,15 @@ const App = () => {
       setSelectedColor([]);
       // Close the modal
       toggleBuildModal();
+      toast("The new product is added successfully.", {
+        icon: "✅",
+        position: "top-right",
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+        },
+      });
     }
   };
   const submitEditHandler = (e: FormEvent<HTMLFormElement>) => {
@@ -124,6 +153,15 @@ const App = () => {
       updatedProducts[productToEditIdx] = productToEdit;
       setProductList(updatedProducts);
       toggleIsEditModal();
+      toast("The product updated.", {
+        icon: "🤝",
+        position: "top-right",
+        style: {
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
+        },
+      });
     }
   };
   // ---------------- Renders..!🔃----------------//
@@ -132,8 +170,10 @@ const App = () => {
       index={idx}
       product={product}
       key={product.id}
+      deleteProduct={deleteProduct}
       toggleIsEditProduct={toggleIsEditModal}
       isEditProduct={editProduct}
+      toggleDeleteModal={toggleDeleteModal}
     />
   ));
 
@@ -175,6 +215,7 @@ const App = () => {
       </div>
     );
   };
+
   const renderCircles = colors.map((el) => (
     <Circle
       onClick={() => {
@@ -196,6 +237,7 @@ const App = () => {
 
   return (
     <div className="container mx-auto my-7">
+      <Toaster />
       {/* Heading...😁 */}
       <div className="flex items-center justify-between py-5 flex-wrap">
         <h1 className="font-bold text-sm sm:text-xl md:text-3xl lg:text-4xl  ">
@@ -285,6 +327,29 @@ const App = () => {
             </Button>
           </div>
         </form>
+      </Modal>
+
+      {/* Delete Modal */}
+      <Modal
+        isOpen={deleteProductModal}
+        setOpenAndClose={toggleBuildModal}
+        title="Delete The Product ">
+        <p className="text-sm text-muted-foreground">
+          This action cannot be undone. This will permanently delete your account and remove your
+          data from our servers.
+        </p>
+
+        <div className="flex mt-3 gap-2 flex-wrap sm:flex-nowrap ">
+          <Button onClick={confirmDeleteProduct} className="bg-red-600 hover:bg-red-700">
+            Delete
+          </Button>
+          <Button
+            type="button"
+            onClick={toggleDeleteModal}
+            className="bg-gray-400 hover:bg-gray-500">
+            Cancel
+          </Button>
+        </div>
       </Modal>
 
       {/* Render all Products...🫠 */}
