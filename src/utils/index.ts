@@ -7,7 +7,7 @@
  */
 export const textSlice = (txt: string, maxLength: number): string => {
   if (txt.length > maxLength) {
-    return txt.slice(0, maxLength);
+    return `${txt.slice(0, maxLength)}...`;
   } else {
     return txt;
   }

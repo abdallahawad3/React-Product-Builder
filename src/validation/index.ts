@@ -14,11 +14,11 @@ const productValidation = (obj: obj) => {
     price: "",
   };
 
-  if (title.length == 0 || title.length < 10 || title.length > 50) {
+  if (title.length == 0 || title.length < 10 || title.length > 100) {
     errorObj.title = "The title must be at least 10 character and max 50 character";
   }
 
-  if (description.length == 0 || description.length < 30 || description.length > 80) {
+  if (description.length == 0 || description.length < 30 || description.length > 150) {
     errorObj.description = "The description must be at least 30 character and max 80 character";
   }
   if (!Number(price) || price.length == 0) {

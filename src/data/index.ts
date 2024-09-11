@@ -11,7 +11,7 @@ import {
   pcDesktop,
   tShirt,
 } from "../assets/images/index";
-import type { IFormInputs, IProduct } from "../interfaces";
+import type { ICategory, IFormInputs, IProduct } from "../interfaces";
 
 export const ProductList: IProduct[] = [
   {
@@ -189,32 +189,32 @@ export const colors: string[] = [
   "#FF0032",
 ];
 
-// export const Category = [
-//   {
-//     id: uuid(),
-//     name: "Cars",
-//     imageURL: car1,
-//   },
+export const categoryList: ICategory[] = [
+  {
+    id: uuid(),
+    name: "Cars",
+    imageURL: car1,
+  },
 
-//   {
-//     id: uuid(),
-//     name: "Nike",
-//     imageURL: nike,
-//   },
-//   {
-//     id: uuid(),
-//     name: "T-Shirt",
-//     imageURL: tShirt,
-//   },
+  {
+    id: uuid(),
+    name: "Nike",
+    imageURL: nike,
+  },
+  {
+    id: uuid(),
+    name: "T-Shirt",
+    imageURL: tShirt,
+  },
 
-//   {
-//     id: uuid(),
-//     name: "Furniture",
-//     imageURL: furniture1,
-//   },
-//   {
-//     id: uuid(),
-//     name: "Pc-Desktop",
-//     imageURL: pcDesktop,
-//   },
-// ];
+  {
+    id: uuid(),
+    name: "Furniture",
+    imageURL: furniture1,
+  },
+  {
+    id: uuid(),
+    name: "Pc-Desktop",
+    imageURL: pcDesktop,
+  },
+];
